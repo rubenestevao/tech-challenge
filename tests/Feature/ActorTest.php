@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Http\Resources\Actor as ActorResource;
 use App\Http\Resources\ActorCollection;
 use App\Models\Actor;
+use App\Models\ActorMovieRole;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
@@ -108,5 +109,30 @@ class ActorTest extends TestCase
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('actors', ['id' => $actor->id]);
+    }
+
+    public function test_can_list_movies_that_an_actor_starred_on()
+    {
+        $actor = factory(Actor::class)->create();
+
+        factory(ActorMovieRole::class, 4)->create([
+           'actor_id' => $actor->id,
+        ]);
+
+        $response = $this->getJson(route('actors.movies', $actor));
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'name',
+                    'year',
+                    'synopsis',
+                    'runtime',
+                    'released_at',
+                    'cost',
+                ]
+            ],
+        ]);
     }
 }

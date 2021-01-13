@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
 use App\Http\Requests\ActorRequest;
 use App\Http\Resources\ActorCollection;
+use App\Http\Resources\MovieCollection;
 use App\Models\Actor;
+use App\Queries\ActorMoviesQuery;
 use Illuminate\Http\Request;
 
 class ActorController extends Controller
@@ -77,5 +79,23 @@ class ActorController extends Controller
         $actor->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Display a listing of the movies that an actor starred on
+     *
+     * @param Request $request
+     * @param Actor $actor
+     * @return MovieCollection
+     */
+    public function movies(Request $request, Actor $actor)
+    {
+        $query = (new ActorMoviesQuery($actor))->getQuery();
+
+        $this->setGetAllBuilder($query);
+        $this->setGetAllOrdering('name', 'asc');
+        $this->parseRequestConditions($request);
+
+        return new MovieCollection($this->getAll()->get());
     }
 }

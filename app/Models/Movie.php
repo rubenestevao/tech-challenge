@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\PrimaryAsUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
 {
@@ -32,5 +33,10 @@ class Movie extends Model
     public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function roles(): HasMany
+    {
+        return $this->hasMany(ActorMovieRole::class);
     }
 }

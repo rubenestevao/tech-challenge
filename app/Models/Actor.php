@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\PrimaryAsUuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Actor extends Model
 {
@@ -18,4 +19,9 @@ class Actor extends Model
         'bio',
         'born_at'
     ];
+
+    public function roles(): HasMany
+    {
+        return $this->hasMany(ActorMovieRole::class);
+    }
 }
