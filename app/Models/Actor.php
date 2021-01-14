@@ -20,6 +20,10 @@ class Actor extends Model
         'born_at'
     ];
 
+    protected $casts = [
+        'roles_count' => 'integer',
+    ];
+
     public function roles(): HasMany
     {
         return $this->hasMany(ActorMovieRole::class);

@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::name('actors.movies')->get('actors/{actor}/movies',  ActorController::class . '@movies');
+Route::name('genres.actors')->get('genres/{genre}/actors',  GenreController::class . '@actors');
 
 Route::resources([
     'genres' => GenreController::class,

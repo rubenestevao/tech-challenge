@@ -19,6 +19,9 @@ class Actor extends JsonResource
             'name' => $this->resource->name,
             'bio' => $this->resource->bio,
             'born_at' => $this->resource->born_at,
+            $this->mergeWhen(!is_null($this->resource->roles_count), [
+                'appearances' => $this->resource->roles_count,
+            ]),
         ];
     }
 }

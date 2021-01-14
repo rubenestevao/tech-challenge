@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\HasFetchAllRenderCapabilities;
 use App\Http\Requests\GenreRequest;
+use App\Http\Resources\ActorCollection;
+use App\Http\Resources\GenreCollection;
 use App\Models\Genre;
+use App\Queries\GenreActorsQuery;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class GenreController extends Controller
 {
@@ -17,14 +19,14 @@ class GenreController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return ResourceCollection
+     * @return GenreCollection
      */
     public function index(Request $request)
     {
         $this->setGetAllBuilder(Genre::query());
         $this->setGetAllOrdering('name', 'asc');
         $this->parseRequestConditions($request);
-        return new ResourceCollection($this->getAll()->paginate());
+        return new GenreCollection($this->getAll()->paginate());
     }
 
     /**
@@ -79,5 +81,18 @@ class GenreController extends Controller
         $genre->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Display a listing of actors for a given Genre
+     *
+     * @param Genre $genre
+     * @return ActorCollection
+     */
+    public function actors(Genre $genre)
+    {
+        $query = (new GenreActorsQuery($genre))->getQuery();
+
+        return new ActorCollection($query->get());
     }
 }
