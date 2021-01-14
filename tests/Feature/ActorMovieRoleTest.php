@@ -16,6 +16,7 @@ class ActorMovieRoleTest extends TestCase
 
     private $resourceStructure = [
         'data' => [
+            'id',
             'name',
             'actor',
             'movie',
@@ -25,6 +26,7 @@ class ActorMovieRoleTest extends TestCase
     private $resourceCollectionStructure = [
         'data' => [
             '*' => [
+                'id',
                 'name',
                 'actor',
                 'movie',

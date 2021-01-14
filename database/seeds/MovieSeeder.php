@@ -14,7 +14,9 @@ class MovieSeeder extends Seeder
     {
         factory(Movie::class, 10)
             ->create([
-                'genre_id' => $this->getRandomGenre(),
+                'genre_id' => function () {
+                    return $this->getRandomGenre();
+                },
             ]);
     }
 

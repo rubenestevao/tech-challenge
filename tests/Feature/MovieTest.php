@@ -16,6 +16,7 @@ class MovieTest extends TestCase
 
     private $resourceStructure = [
         'data' => [
+            'id',
             'name',
             'year',
             'synopsis',
@@ -28,6 +29,7 @@ class MovieTest extends TestCase
     private $resourceCollectionStructure = [
         'data' => [
             '*' => [
+                'id',
                 'name',
                 'year',
                 'synopsis',

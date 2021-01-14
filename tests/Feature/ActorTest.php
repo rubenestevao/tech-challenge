@@ -17,6 +17,7 @@ class ActorTest extends TestCase
 
     private $resourceStructure = [
         'data' => [
+            'id',
             'name',
             'bio',
             'born_at',
@@ -26,6 +27,7 @@ class ActorTest extends TestCase
     private $resourceCollectionStructure = [
         'data' => [
             '*' => [
+                'id',
                 'name',
                 'bio',
                 'born_at',

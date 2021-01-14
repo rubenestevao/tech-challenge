@@ -17,6 +17,7 @@ class GenreTest extends TestCase
 
     private $resourceStructure = [
         'data' => [
+            'id',
             'name',
         ],
     ];
@@ -24,6 +25,7 @@ class GenreTest extends TestCase
     private $resourceCollectionStructure = [
         'data' => [
             '*' => [
+                'id',
                 'name',
             ]
         ],
@@ -69,7 +71,7 @@ class GenreTest extends TestCase
 
     public function test_can_create_genre()
     {
-        $data = factory(Genre::class)->make()->toArray();
+        $data = Arr::except(factory(Genre::class)->make()->toArray(), 'id');
 
         $response = $this->postJson(route('genres.store'), $data);
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ActorMoviesQuery
 {
-    protected $actor;
+    protected Actor $actor;
 
     public function __construct(Actor $actor)
     {

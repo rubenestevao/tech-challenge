@@ -24,7 +24,7 @@ class CreateMoviesTable extends Migration
             $table->uuid('genre_id');
             $table->timestamps();
 
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('genre_id')->references('id')->on('genres')->cascadeOnDelete();
         });
     }
 
